@@ -9,10 +9,17 @@
   },
   "projects": {
     "client": {
-      "tags": ["client"]
+      "tags": [
+        "client"
+      ]
     },
     "client-e2e": {
       "tags": []
+    },
+    "server": {
+      "tags": [
+        "server"
+      ]
     }
   }
 }
