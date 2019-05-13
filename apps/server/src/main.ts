@@ -1,20 +1,16 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- **/
-
 import * as express from 'express';
+import { Server } from 'http';
+import { initChatSocket } from './app/chat/chat-socket';
 
 const app = express();
-
-app.get('/api', (req, res) => {
-  res.send({message: `Welcome to server!`});
-});
+const server = new Server(app);
 
 const port = process.env.port || 3333;
-app.listen(port, (err) => {
+server.listen(port, (err) => {
   if (err) {
     console.error(err);
   }
   console.log(`Listening at http://localhost:${port}`);
 });
+
+initChatSocket(server);

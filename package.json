@@ -28,7 +28,6 @@
   },
   "private": true,
   "dependencies": {
-    "express": "4.16.3",
     "@angular/animations": "^7.0.0",
     "@angular/common": "^7.0.0",
     "@angular/compiler": "^7.0.0",
@@ -38,7 +37,9 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
     "core-js": "^2.5.4",
+    "express": "4.16.3",
     "rxjs": "6.3.3",
+    "socket.io": "^2.2.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -57,6 +58,7 @@
     "@angular/cli": "7.3.1",
     "@nrwl/schematics": "7.8.5",
     "@types/node": "~8.9.4",
+    "@types/socket.io": "^2.1.2",
     "dotenv": "6.2.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
