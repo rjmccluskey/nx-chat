@@ -1,8 +1,4 @@
-export interface Message {
-  username: string;
-  content: string;
-  dateCreated: Date;
-}
+import { Message } from '@rjm/chat';
 
 export class MessageRepository {
   private messages: Message[];

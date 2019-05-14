@@ -1,4 +1,5 @@
-import { MessageRepository, Message } from './message-repository';
+import { MessageRepository } from './message-repository';
+import { Message } from '@rjm/chat';
 
 describe('MessageRepository', () => {
   describe('getAll', () => {
