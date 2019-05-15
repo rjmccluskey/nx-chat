@@ -1,6 +1,23 @@
-<input #input type="text" placeholder="type something...">
-<button (click)="sendMessage(input.value)">Send</button>
-
-<div *ngFor="let message of messages">
-  {{ message.username }} says: {{ message.content }}
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Chat</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="message-container" cdkScrollable>
+    <mat-chip-list class="mat-chip-list-stacked">
+      <mat-chip *ngFor="let message of messages$ | async"
+                [ngClass]="{ message: true, mine: chatMessageService.username === message.username }"
+                color="primary"
+                [selected]="chatMessageService.username === message.username"
+                [disableRipple]="true">
+        {{ message.content }}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+  <mat-card-content>
+    <form autocomplete="off" (submit)="sendMessage($event)">
+      <mat-form-field>
+        <input matInput placeholder="Say something..." [(ngModel)]="messageContent" name="message" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

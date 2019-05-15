@@ -9,9 +9,9 @@ import { Message, ChatEvent } from '@rjm/chat';
 })
 export class ChatMessageService {
   message$: Observable<Message>;
+  username = 'user ' + new Date().getTime();
 
   private socket = io.connect(environment.chatSocketUrl);
-  private username = 'user ' + new Date().getTime();
 
   constructor() {
     const message$ = new Subject<Message>();
