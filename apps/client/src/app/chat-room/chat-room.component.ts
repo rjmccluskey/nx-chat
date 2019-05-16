@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { ChatMessageService } from './chat-message.service';
 import { Message } from '@rjm/chat';
-import { scan, tap } from 'rxjs/operators';
+import { tap, map, startWith } from 'rxjs/operators';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { Observable } from 'rxjs';
 import { UserService } from '../user/user.service';
@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent implements OnInit, AfterViewChecked {
-  messages$: Observable<Message[]> = this.chatMessageService.message$.pipe(
-    scan((messages: Message[], message: Message) => {
-      messages.push(message);
-      return messages;
-    }, []),
+  messages$: Observable<Message[]> = this.chatMessageService.messages$.pipe(
     tap(() => this.shouldScroll = true)
+  );
+  users$: Observable<string[]> = this.chatMessageService.messages$.pipe(
+    startWith([]),
+    map(messages => this.getUniqueNames(messages))
   );
   messageContent = '';
   username: string;
@@ -56,5 +56,15 @@ export class ChatRoomComponent implements OnInit, AfterViewChecked {
 
   scrollToBottom() {
     this.scrollContainer.scrollTo({ bottom: 0 })
+  }
+
+  private getUniqueNames(messages: Message[]): string[] {
+    return messages.reduce((names: string[], message) => {
+      const currentName = message.username;
+      if (currentName !== this.username && !names.includes(currentName)) {
+        names.push(currentName)
+      }
+      return names;
+    }, [])
   }
 }
