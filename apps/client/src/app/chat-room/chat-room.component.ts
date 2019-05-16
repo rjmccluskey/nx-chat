@@ -3,6 +3,7 @@ import { ChatMessageService } from './chat-message.service';
 import { Message } from '@rjm/chat';
 import { scan, tap } from 'rxjs/operators';
 import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'rjm-chat-room',
@@ -10,8 +11,11 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent implements AfterViewChecked {
-  messages$ = this.chatMessageService.message$.pipe(
-    scan((messages: Message[], message) => [...messages, message], []),
+  messages$: Observable<Message[]> = this.chatMessageService.message$.pipe(
+    scan((messages: Message[], message: Message) => {
+      messages.push(message);
+      return messages;
+    }, []),
     tap(() => this.shouldScroll = true)
   );
   messageContent = '';
