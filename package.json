@@ -5,6 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startClient": "ng serve client",
+    "startServer": "ng serve server",
     "build": "ng build",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
