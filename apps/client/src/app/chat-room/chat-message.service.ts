@@ -3,17 +3,17 @@ import * as io from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 import { Message, ChatEvent } from '@rjm/chat';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatMessageService {
   message$: Observable<Message>;
-  username = 'user ' + new Date().getTime();
 
   private socket = io.connect(environment.chatSocketUrl);
 
-  constructor() {
+  constructor(private userService: UserService) {
     const message$ = new Subject<Message>();
     this.socket.on(ChatEvent.message, (message: Message) => message$.next(message));
     this.message$ = message$;
@@ -21,7 +21,7 @@ export class ChatMessageService {
 
   addMessage(content: string) {
     const message: Message = {
-      username: this.username,
+      username: this.userService.getUsername(),
       content,
       dateCreated: new Date()
     };

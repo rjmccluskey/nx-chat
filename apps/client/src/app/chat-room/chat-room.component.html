@@ -1,16 +1,22 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Chat</mat-card-title>
+    <mat-card-title>Welcome to the chatroom, {{ username }}!</mat-card-title>
   </mat-card-header>
   <mat-card-content class="message-container" cdkScrollable>
     <mat-chip-list class="mat-chip-list-stacked">
-      <mat-chip *ngFor="let message of messages$ | async"
-                [ngClass]="{ message: true, mine: chatMessageService.username === message.username }"
-                color="primary"
-                [selected]="chatMessageService.username === message.username"
-                [disableRipple]="true">
-        {{ message.content }}
-      </mat-chip>
+      <div *ngFor="let message of messages$ | async as messages; index as i; first as isFirst"
+           [ngClass]="{ 'chip-container': true, mine: username === message.username }" >
+        <div class="mat-caption"
+             *ngIf="username !== message.username && (isFirst || messages[i - 1].username !== message.username)">
+          {{ message.username }} says
+        </div>
+        <mat-chip class="message"
+                  color="primary"
+                  [selected]="username === message.username"
+                  [disableRipple]="true">
+          {{ message.content }}
+        </mat-chip>
+      </div>
     </mat-chip-list>
   </mat-card-content>
   <mat-card-content>

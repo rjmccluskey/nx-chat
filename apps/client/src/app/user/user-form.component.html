@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-content>
+    <form autocomplete="off" (submit)="onJoin()">
+      <mat-form-field>
+        <input matInput [(ngModel)]="username" name="username" placeholder="Pick a username">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-flat-button color="primary" [disabled]="!username" (click)="onJoin()">Join!</button>
+  </mat-card-actions>
+</mat-card>

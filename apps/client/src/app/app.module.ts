@@ -11,14 +11,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { UserFormComponent } from "./user/user-form.component";
+import { MatButtonModule } from '@angular/material/button';
 
 const appRoutes: Routes = [
-  { path: '', component: ChatRoomComponent },
+  { path: '', redirectTo: '/new-user', pathMatch: 'full' },
+  { path: 'new-user', component: UserFormComponent },
+  { path: 'chat', component: ChatRoomComponent },
   { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({
-  declarations: [AppComponent, ChatRoomComponent],
+  declarations: [AppComponent, ChatRoomComponent, UserFormComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -29,7 +33,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatChipsModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
